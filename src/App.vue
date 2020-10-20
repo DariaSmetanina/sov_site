@@ -19,7 +19,7 @@
     <div>
       <router-view />
     </div>
-    <div class="scrollup">
+    <div class="scrollup" id="scrlbtn">
       <a href="#top"><font-awesome-icon icon="chevron-up"/></a>
     </div>
   </div>
