@@ -15,17 +15,18 @@ import {
   faSignOutAlt,
   faChevronLeft,
   faChevronRight,
-  faChevronDown,
+  faChevronUp,
   faTrashAlt,
   faCheckSquare,
   faEdit,
   faPlusSquare,
-  faCommentAlt
+  faCommentAlt,
+    faFlag
 } from '@fortawesome/free-solid-svg-icons';
 
 
 
-library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt, faChevronLeft, faChevronRight, faChevronDown,faTrashAlt, faCheckSquare, faEdit, faPlusSquare, faCommentAlt);
+library.add(faHome, faUser, faUserPlus, faSignInAlt, faSignOutAlt, faChevronLeft, faChevronRight, faChevronUp,faTrashAlt, faCheckSquare, faEdit, faPlusSquare, faCommentAlt, faFlag);
 
 
 Vue.config.productionTip = false

@@ -1,31 +1,22 @@
 <template>
   <div class="News">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-      <a class="navbar-brand" href="#">Top navbar</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
     <main role="main" class="container">
       <div class="jumbotron ncard">
-        <h1>Interesting news</h1>
-        <p class="lead">This example is a quick exercise to illustrate how the top-aligned navbar works. As you scroll, this navbar remains in its original position and moves with the rest of the page.</p>
-      </div>
+
+          <h1>СЗВ-ТД <font-awesome-icon class="flag" icon="flag"/></h1>
+        <h6>20.10.2020</h6>
+        <p>
+          <p>Публикация от 22.04.2020 на портале Санкт-Петербургского Отделения ПФР “Новые сроки отчетности о приеме на работу и увольнении“</p>
+        <p>Среди мер поддержки безработных граждан, принятых Правительством, – возможность дистанционно встать на учет в службу занятости для получения пособия. Постановление Правительства РФ от 08.04.2020 № 460 утверждает следующий порядок работы:
+            <br>- Работодатель по форме СЗВ-ТД представляет в ПФР информацию об увольнении гражданина не позднее рабочего дня, следующего за днем издания соответствующего приказа (распоряжения), а также иных решений или документов, подтверждающих оформление трудовых отношений.
+            <br>- Безработный гражданин заполняет заявление о постановке на регистрационный учет в центре занятости на портале госуслуг или в личном кабинете Общероссийской базы вакансий “Работа в России”.
+            <br>- Центр занятости запрашивает у ПФР сведения о заработке гражданина, на который начислялись страховые взносы на обязательное пенсионное страхование, за 3 месяца, предшествующих календарному кварталу перед месяцем подачи заявления в электронной форме.
+            <br>- Пенсионный фонд Российской Федерации представляет запрашиваемую центрами занятости населения информацию.</p>
+        <img src="https://www.klerk.ru/img/pb/original/eePeEeeY_1_7198.png" alt="форма сзв-тд">
+        </div>
+
     </main>
+
   </div>
 </template>
 
@@ -38,31 +29,29 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-  .ncard{
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 90%;
-    min-width: 400px;
+
+  h1{
+    padding-left: 10%;
   }
-  .navbar{
-    padding-left: 15%;
-    padding-right: 15%;
+  h6{
+      padding-bottom: 1.5rem;
+      padding-left: 10%;
+  }
+
+  img{
+    max-width: 100%;
+    border-radius: .3rem;
+  }
+
+.flag{
+    color: red;
+}
+
+  .ncard{
+      padding-top: 2rem;
+      padding-bottom: 2rem;
   }
 
 </style>
