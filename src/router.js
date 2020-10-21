@@ -5,37 +5,49 @@ import News from "@/components/News";
 import CreateNews from "@/components/CreateNews";
 import Login from "@/components/Login";
 import Settings from "@/components/Settings";
+import Notice from "@/components/Notice";
+import SendMessage from "@/components/SendMessage";
 
 Vue.use(Router);
 
 export const router = new Router({
-  mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/news',
-      component: News
-    },
-    {
-      path: '/createnews',
-      component: CreateNews
-    }
-    ,
-    {
-      path: '/login',
-      component: Login
-    }
-    ,
-    {
-      path: '/settings',
-      component: Settings
-    }
+    mode: 'history',
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: '/news',
+            component: News
+        },
+        {
+            path: '/createnews',
+            component: CreateNews
+        }
+        ,
+        {
+            path: '/login',
+            component: Login
+        }
+        ,
+        {
+            path: '/settings',
+            component: Settings
+        }
+        ,
+        {
+            path: '/notifications',
+            component: Notice
+        }
+        ,
+        {
+            path: '/message',
+            component: SendMessage
+        }
 
-  ]
+    ]
 });
 
 
