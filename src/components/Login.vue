@@ -2,7 +2,7 @@
     <div class="Login">
         <form class="form-signin jumbotron ncard">
 
-            <h1 class="h3 mb-3 font-weight-normal">Пожалуйста войдите</h1>
+            <h1 class="h3 mb-3 font-weight-normal">Необходим вход</h1>
 
             <input type="email" id="inputEmail" class="form-control" placeholder="Логин" required autofocus>
             <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required>

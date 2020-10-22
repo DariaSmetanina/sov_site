@@ -21,7 +21,7 @@
             <router-view/>
         </div>
         <div class="scrollup" id="scrlbtn">
-            <a href="#top">
+            <a class="scrollup" href="#top">
                 <font-awesome-icon icon="chevron-up"/>
             </a>
         </div>
@@ -71,10 +71,12 @@
         border-top-right-radius: 4px;
         cursor: pointer;
         text-align: center;
+        color: black;
     }
 
     .scrollup:hover {
         background-color: #343a40;
+        color: white;
     }
 
     #top {
@@ -94,6 +96,12 @@
 
     h1 {
         padding-left: 10%;
+    }
+
+    .alink, .alink:hover{
+        text-decoration: none;
+        color:#2c3e50;
+
     }
 
 

@@ -34,7 +34,14 @@
                 <h1 class="h3 mb-3 font-weight-normal">Мои организации</h1>
 
                 <table class="table table-hover table-sm">
+                    <thead class="thead-dark">
+                    <th>Организация</th>
+                    <th>ИНН-КПП</th>
+                    <th>Руководитель</th>
+                    <th></th>
+                    </thead>
                     <tbody id="list_organizations">
+
                     <tr>
                         <td>ООО "АРКУДА"</td>
                         <td>15834975781 - 1547778</td>

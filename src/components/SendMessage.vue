@@ -1,5 +1,5 @@
 <template>
-    <div class="News">
+    <div class="SendMessage">
         <main role="main" class="container">
             <div class="jumbotron ncard">
                 <h1 class="h3 mb-3 font-weight-normal">Написать письмо</h1>
@@ -26,7 +26,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <input type="submit" class="btn btn-dark" value="Отправить новость">
+                            <input type="submit" class="btn btn-dark" value="Отправить письмо">
                         </div>
                     </div>
 

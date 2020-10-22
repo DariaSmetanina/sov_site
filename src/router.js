@@ -7,6 +7,9 @@ import Login from "@/components/Login";
 import Settings from "@/components/Settings";
 import Notice from "@/components/Notice";
 import SendMessage from "@/components/SendMessage";
+import Templates from "@/components/Templates";
+import PersonalArea from "@/components/PersonalArea";
+import Payment from "@/components/Payment";
 
 Vue.use(Router);
 
@@ -45,6 +48,21 @@ export const router = new Router({
         {
             path: '/message',
             component: SendMessage
+        }
+        ,
+        {
+            path: '/templates',
+            component: Templates
+        }
+        ,
+        {
+            path: '/personal',
+            component: PersonalArea
+        }
+        ,
+        {
+            path: '/payments',
+            component: Payment
         }
 
     ]
