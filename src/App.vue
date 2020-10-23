@@ -9,11 +9,24 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/"> На главную <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#news"> Новости <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#about"> О нас <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#calc"> Тарифы <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#footer"> Контакты <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Личный кабинет</a>
+                        <a class="nav-link active" href="/personal">Личный кабинет</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/settings">Настройки</a>
+                    </li>
+
                 </ul>
             </div>
         </nav>
@@ -25,6 +38,16 @@
                 <font-awesome-icon icon="chevron-up"/>
             </a>
         </div>
+        <footer class="footer">
+        <table class="table" id="footer">
+            <tr><td><font-awesome-icon icon="phone"/> +7(999)635-98-30
+            <br> <font-awesome-icon icon="phone"/> +7(922)651-73-12</td>
+                <td>За качество своей работы мы отвечаем в строгом соответствии с договором и законодательством Российской Федерации.</td>
+                <td><font-awesome-icon icon="envelope"/> emailOrg@gmail.com
+                <br><font-awesome-icon icon="envelope"/> emailOrg@mail.ru</td>
+            </tr>
+        </table>
+        </footer>
     </div>
 </template>
 
@@ -71,7 +94,7 @@
         border-top-right-radius: 4px;
         cursor: pointer;
         text-align: center;
-        color: black;
+        color: #343a40;
     }
 
     .scrollup:hover {
@@ -104,5 +127,13 @@
 
     }
 
+    .footer{
+        padding: 1rem;
+        max-width: 90%;
+        margin: auto;
+    }
+    #footer td{
+        min-width: 300px;
+    }
 
 </style>

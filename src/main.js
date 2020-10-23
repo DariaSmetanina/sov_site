@@ -15,11 +15,12 @@ import {
     faPlusSquare,
     faCommentAlt,
     faFlag,
-    faEnvelope
+    faEnvelope,
+    faPhone
 } from '@fortawesome/free-solid-svg-icons';
 
 
-library.add(faChevronUp, faTrashAlt, faCheckSquare, faEdit, faPlusSquare, faCommentAlt, faFlag, faEnvelope);
+library.add(faChevronUp, faTrashAlt, faCheckSquare, faEdit, faPlusSquare, faCommentAlt, faFlag, faEnvelope, faPhone);
 
 
 Vue.config.productionTip = false
