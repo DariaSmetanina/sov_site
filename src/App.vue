@@ -38,7 +38,7 @@
                 <font-awesome-icon icon="chevron-up"/>
             </a>
         </div>
-        <footer class="footer">
+        <footer class="footer" style=" overflow-x: auto;">
         <table class="table" id="footer">
             <tr><td><font-awesome-icon icon="phone"/> +7(999)635-98-30
             <br> <font-awesome-icon icon="phone"/> +7(922)651-73-12</td>
@@ -52,7 +52,6 @@
 </template>
 
 <script>
-
     export default {}
 </script>
 
@@ -64,6 +63,10 @@
         text-align: center;
         color: #2c3e50;
         margin: 0;
+
+    }
+
+    table{
 
     }
 
@@ -134,6 +137,16 @@
     }
     #footer td{
         min-width: 300px;
+    }
+
+    .flagClass-1{
+        color: red;
+    }
+    .flagClass-2{
+        color: yellow;
+    }
+    .flagClass-3{
+        color: green;
     }
 
 </style>

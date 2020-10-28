@@ -22,7 +22,7 @@ export const router = new Router({
             component: Home
         },
         {
-            path: '/news',
+            path: '/all/:id',
             component: News
         },
         {
