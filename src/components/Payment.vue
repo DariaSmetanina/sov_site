@@ -40,7 +40,7 @@
 </template>
 
 <script>
-    import MainService from '../services/news.service';
+    import MainService from '../services/main.service';
 
     export default {
         name: 'list_account',

@@ -1,7 +1,7 @@
 <template>
-    <div class="Settings">
+    <div class="Settings" id="Settings">
         <main role="main" class="container">
-            <form class="form-signin jumbotron ncard">
+            <form class="form-signin jumbotron ncard" @submit.prevent="editPersonal">
                 <div class="form-row">
                     <h1 class="h3 mb-3 font-weight-normal">Персональные настройки</h1>
                 </div>
@@ -10,7 +10,7 @@
                 </div>
                 <div class="form-row">
                     <div class="col">
-                        <input type="email" id="inputEmail" class="form-control" placeholder="Новый email" required
+                        <input v-model="person.email" type="email" id="inputEmail" class="form-control" placeholder="Новый email" required
                                autofocus>
                     </div>
                     <div class="col"></div>
@@ -19,14 +19,14 @@
                     <h5>Изменить пароль</h5>
                 </div>
                 <div class="form-row">
-                    <div class="col"><input type="password" id="origPassword" class="form-control"
+                    <div class="col"><input v-model="person.oldPassword" type="password" id="origPassword" class="form-control"
                                             placeholder="Старый пароль" required autofocus></div>
-                    <div class="col"><input type="password" id="newPassword" class="form-control"
+                    <div class="col"><input v-model="person.newPassword" type="password" id="newPassword" class="form-control"
                                             placeholder="Новый пароль" required autofocus></div>
-                    <div class="col"><input type="password" id="newPassword2" class="form-control"
+                    <div class="col"><input v-model="person.newPasswordCopy" type="password" id="newPassword2" class="form-control"
                                             placeholder="Повторите новый пароль" required autofocus></div>
                 </div>
-
+                <h5>{{message}}</h5>
                 <button class="btn btn-lg btn-dark btn-block" type="submit">Сохранить изменения</button>
 
             </form>
@@ -36,48 +36,74 @@
                 <table class="table table-hover table-sm">
                     <thead class="thead-dark">
                     <th>Организация</th>
-                    <th>ИНН-КПП</th>
+                    <th>ИНН</th>
                     <th>Руководитель</th>
                     <th></th>
                     </thead>
-                    <tbody id="list_organizations">
-
-                    <tr>
-                        <td>ООО "АРКУДА"</td>
-                        <td>15834975781 - 1547778</td>
-                        <td>Зубов Вадим Александрович</td>
+                    <tbody id="list_organization">
+                    <tr v-for="organization in organizations" v-bind:key="organization">
+                        <td>{{ organization.name }}</td>
+                        <td>{{ organization.inn }}</td>
+                        <td>{{ organization.director }}</td>
                         <td>
                             <div class="btn btn-sm">
                                 <font-awesome-icon icon="trash-alt"/>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>ФСО "АРКУДА"</td>
-                        <td>18884975781 - 1543338</td>
-                        <td>Зубов Вадим Александрович</td>
-                        <td>
-                            <div class="btn btn-sm">
-                                <font-awesome-icon icon="trash-alt"/>
-                            </div>
-                        </td>
-                    </tr>
-
                     </tbody>
                 </table>
-
             </div>
         </main>
     </div>
 </template>
 
 <script>
+    import AddEditService from '../services/addedit.service';
+    import MainService from '../services/main.service';
+    import UserSettings from "@/models/userSettings";
     export default {
         name: 'Settings',
-        props: {
-            msg: String
-        }
-    }
+        data: function () {
+            return {
+                organizations: [],
+                person: new UserSettings('', '', '', ''),
+                submitted: false,
+                message: ''
+            };
+        },
+        mounted() {
+            MainService.getOrganizations().then(
+                response => {
+                    this.organizations = response.data;
+                },
+                error => {
+                    this.organizations =
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString();
+                }
+            );
+    },
+    methods: {
+    editPersonal(){
+        this.submitted = true;
+        AddEditService.setPersonal(this.person).then(
+                    response => {
+                        this.message = response.data.message;
+                        this.successful = true;
+                        this.showRoute(this.startObjectFromGeocoder, this.finishObjectFromGeocoder)
+                    },
+                    error => {
+                        this.message =
+                            (error.response && error.response.data) ||
+                            error.message ||
+                            error.toString();
+                        this.successful = false;
+                    }
+                );
+            }
+        }};
 </script>
 
 

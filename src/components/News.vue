@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import MainService from '../services/news.service';
+import MainService from '../services/main.service';
 import News from '../models/news.js'
 
     export default {

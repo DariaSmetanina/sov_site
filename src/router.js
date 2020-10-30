@@ -10,6 +10,7 @@ import SendMessage from "@/components/SendMessage";
 import Templates from "@/components/Templates";
 import PersonalArea from "@/components/PersonalArea";
 import Payment from "@/components/Payment";
+import ChooseOrg from "@/components/ChooseOrg";
 
 Vue.use(Router);
 
@@ -22,7 +23,7 @@ export const router = new Router({
             component: Home
         },
         {
-            path: '/all/:id',
+            path: '/news/:id',
             component: News
         },
         {
@@ -56,8 +57,13 @@ export const router = new Router({
         }
         ,
         {
-            path: '/personal',
+            path: '/personal/:inn',
             component: PersonalArea
+        }
+        ,
+        {
+            path: '/choose',
+            component: ChooseOrg
         }
         ,
         {

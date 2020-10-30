@@ -1,16 +1,18 @@
 <template>
     <div class="PersonalArea">
         <main role="main" class="container">
-            <select class="form-control">
-                <option>ООО "Аркуда"</option>
-                >
-                <option>ООО "ФСО Аркуда"</option>
-                >
-            </select>
-
+            <div class="form-row">
+            <div v-for="organization in organizations" v-bind:key="organization" class="col">
+                <a :href="'/personal/'+organization.inn" class="alink">
+                    <div class="orgcard" >
+                        <h3>{{ organization.name }}</h3>
+                    </div>
+                </a>
+            </div>
+            </div>
             <div class="form-row">
                 <div class="col">
-                    <a href="/payments" class="alink">
+                    <router-link to="/payments" class="alink">
                         <div class="jumbotron ncard">
                             <h2>Счета и оплаты</h2>
                             <table class="table table-hover table-sm">
@@ -20,64 +22,49 @@
                                 <th>Счет</th>
                                 <th>Сумма</th>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <td>20.10.2020</td>
-                                    <td><font-awesome-icon class="flag" icon="flag" style="color: yellow"/></td>
-                                    <td>№18/3 от 15.10.2020</td>
-                                    <td>5 000,00</td>
-                                  </tr>
-                                <tr>
-                                    <td>10.09.2020</td>
-                                    <td><font-awesome-icon class="flag" icon="flag" style="color: green"/></td>
-                                    <td>№11/3 от 08.09.2020</td>
-                                    <td>3 000,00</td>
-                                  </tr>                    </tbody>
-                            </table>
-                        </div>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="notifications" class="alink">
-                        <div class="jumbotron ncard">
-                            <h2>Уведомления</h2>
-                            <table class="table table-hover table-sm">
-                                <tbody>
-                                <tr>
-                                    <td>20.10.2020</td>
+                                <tbody id="list_account">
+                                <tr v-for="account in accounts" v-bind:key="account">
+                                    <td>{{ account.date }}</td>
                                     <td>
-                                        <font-awesome-icon class="flag" icon="flag" style="color: yellow"/>
+                                        <font-awesome-icon :class="'flagClass-'+account.status" icon="flag"/>
                                     </td>
-                                    <td>Напоминаем о необходимости ДО 25 октября предоставить первичные документы за 2
-                                        квартал 2020
-                                        года
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>14.10.2020</td>
-                                    <td>
-                                        <font-awesome-icon class="flag" icon="flag" style="color: red"/>
-                                    </td>
-                                    <td>У вас заканчивается срок действия электронной подписи. Для его продления
-                                        обратитесь к Вашему
-                                        бухгалтеру
-                                    </td>
+                                    <td>{{ account.number }}</td>
+                                    <td>{{ account.amount }}</td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-                    </a>
+                    </router-link>
+                </div>
+                <div class="col">
+                    <router-link to="/notifications" class="alink">
+                        <div class="jumbotron ncard">
+                            <h2>Уведомления</h2>
+                            <table class="table table-hover table-sm">
+                                <tbody>
+                                <tr v-for="notification in notifications" v-bind:key="notification">
+                                    <td>{{ notification.date }}</td>
+                                    <td>
+                                        <font-awesome-icon :class="'flagClass-'+notification.importance" icon="flag"/>
+                                    </td>
+                                    <td>{{ notification.organization }}</td>
+                                    <td>{{ notification.text }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </router-link>
                 </div>
             </div>
             <div class="form-row">
                 <div class="col">
-                    <a href="/templates" class="alink">
+                    <router-link to="/templates" class="alink">
                         <div class="jumbotron ncard">
                             <h2>Шаблоны документов</h2>
                             <p>Здесь Вы можете найти шаблоны раличных документов: договоров, приказов, отчетов. Мы
                                 следим чтобы все формы обновлялись в соответствии с изменениями в законодательстве. </p>
                         </div>
-                    </a>
+                    </router-link>
                 </div>
                 <div class="col">
                     <div class="jumbotron ncard">
@@ -99,12 +86,54 @@
 </template>
 
 <script>
+    import MainService from '../services/main.service';
+
     export default {
-        name: 'News',
-        props: {
-            msg: String
+        name: 'list_account',
+        data: function () {
+            return {
+                accounts: [],
+                notifications: [],
+                organizations:[]
+            };
+        },
+        mounted() {
+            MainService.getFourAcconts(this.$route.params.inn).then(
+                response => {
+                    this.accounts = response.data;
+                },
+                error => {
+                    this.accounts =
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString();
+                }
+            );
+            MainService.getTwoNotifications(this.$route.params.inn).then(
+                response => {
+                    this.notifications = response.data;
+                },
+                error => {
+                    this.accounts =
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString();
+                }
+            );
+            MainService.getOrganizations().then(
+                response => {
+                    this.organizations = response.data;
+                },
+                error => {
+                    this.organizations =
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString();
+                }
+            );
+
         }
-    }
+    };
 </script>
 
 
@@ -123,4 +152,10 @@
         margin-left: .7rem;
     }
 
+    .orgcard{
+        background-color: #343a40;
+        color: white;
+        margin: 0.5rem;
+        border-radius: 0.5rem;
+    }
 </style>

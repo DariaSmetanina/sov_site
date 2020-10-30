@@ -9,13 +9,30 @@ class MainService {
     return axios.get(NEWAPI_URL+'all?ID='+id, { headers: authHeader() });
   }
 
+  getThreeNews() {
+    return axios.get(NEWAPI_URL+'three', { headers: authHeader() });
+  }
+
   getAccontList(){
       return axios.get(ACCAPI_URL+'account', { headers: authHeader() });
+  }
+
+  getFourAcconts(inn){
+      return axios.get(ACCAPI_URL+'personalA?inn='+inn, { headers: authHeader() });
   }
 
   getNotificationsList(){
     return axios.get(ACCAPI_URL+'notification', { headers: authHeader() });
   }
+
+  getTwoNotifications(inn){
+    return axios.get(ACCAPI_URL+'personalN?inn='+inn, { headers: authHeader() });
+  }
+
+  getOrganizations(){
+    return axios.get(ACCAPI_URL+'organizations', { headers: authHeader() });
+  }
+
 
 
 }

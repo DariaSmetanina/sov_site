@@ -2,26 +2,25 @@
     <div class="News">
         <main role="main" class="container">
             <div class="jumbotron ncard">
-                <form>
+                <form @submit.prevent="addNews">
                     <div class="form-row">
                         <div class="col">
-                            <input type="text" class="form-control mb-3" placeholder="Название" id="title">
+                            <input v-model="news.title" type="text" class="form-control mb-3" placeholder="Название" id="title">
                         </div>
                         <div class="col" id="urgent">
                             <div class="btn-group" data-toggle="buttons">
-
                                 <label class="btn btn-success active">
-                                    <input type="radio" style="display: none;" name="urgency">
+                                    <input v-model="news.importance" type="radio" value ="3" style="display: none;" name="urgency">
                                     <span><font-awesome-icon icon="flag"/></span>
                                 </label>
 
                                 <label class="btn btn-warning">
-                                    <input type="radio" style="display: none;" name="urgency" checked>
+                                    <input v-model="news.importance" type="radio" value ="2" style="display: none;" name="urgency" checked>
                                     <span><font-awesome-icon icon="flag"/></span>
                                 </label>
 
                                 <label class="btn btn-danger">
-                                    <input type="radio" style="display: none;" name="urgency">
+                                    <input v-model="news.importance" type="radio" value ="1" style="display: none;" name="urgency">
                                     <span><font-awesome-icon icon="flag"/></span>
                                 </label>
 
@@ -29,9 +28,9 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <textarea class="form-control" id="MainPart" rows="3"
+                        <textarea v-model="news.mainPart" class="form-control" id="MainPart" rows="3"
                                   placeholder="Введите основную мысль текста"></textarea>
-                        <textarea class="form-control" id="LongPart" rows="6"
+                        <textarea v-model="news.text" class="form-control" id="LongPart" rows="6"
                                   placeholder="Введите полный текст, со ссылками на источники"></textarea>
                     </div>
                     <div class="form-row">
@@ -42,6 +41,7 @@
                                 </label>
                             </div>
                         </div>
+                        <h3>{{message}}</h3>
                         <div class="col">
                             <input type="submit" class="btn btn-dark" value="Отправить новость">
                         </div>
@@ -57,12 +57,36 @@
 </template>
 
 <script>
+    import AddEditService from '../services/addedit.service';
+    import News from "@/models/news";
     export default {
-        name: 'News',
-        props: {
-            msg: String
-        }
-    }
+        name: 'Settings',
+        data: function () {
+            return {
+                news: new News('', '', '', '', '', '', ''),
+                submitted: false,
+                message: ''
+            };
+        },
+        methods: {
+            addNews(){
+                this.submitted = true;
+                AddEditService.addNews(this.news).then(
+                    response => {
+                        this.message = response.data.message;
+                        this.successful = true;
+                        this.showRoute(this.startObjectFromGeocoder, this.finishObjectFromGeocoder)
+                    },
+                    error => {
+                        this.message =
+                            (error.response && error.response.data) ||
+                            error.message ||
+                            error.toString();
+                        this.successful = false;
+                    }
+                );
+            }
+        }};
 </script>
 
 

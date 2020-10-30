@@ -1,5 +1,5 @@
 <template>
-    <div class="Home">
+    <div class="Home" id="Home">
         <div id="carousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -12,45 +12,18 @@
         </div>
 
         <div class="form-row" id="news">
-            <div class="col">
-                <a class="alink" href="/news">
+            <div class="col" v-for="news in news_list" v-bind:key="news">
+                <router-link :to="'/news/'+news.id" class="alink">
                     <div class="jumbotron ncard">
-                        <h4>СЗВ-ТД
-                            <font-awesome-icon class="flag" icon="flag" style="color: red"/>
+                        <h4>{{news.title}}
+                            <font-awesome-icon :class="'flagClass-'+news.importance" icon="flag"/>
                         </h4>
-                        <h6>20.10.2020</h6>
-                        <p>Публикация от 22.04.2020 на портале Санкт-Петербургского Отделения ПФР “Новые сроки
-                            отчетности о
-                            приеме на работу и увольнении“</p>
+                        <h6>{{news.date}}</h6>
+                        <p>{{news.mainPart}}</p>
                     </div>
-                </a>
-            </div>
-            <div class="col">
-                <a class="alink" href="/news">
-                    <div class="jumbotron ncard">
-                        <h4>Еще одна новость
-                            <font-awesome-icon class="flag" icon="flag" style="color: green"/>
-                        </h4>
-                        <h6>20.10.2020</h6>
-                        <p>В недрах тундры выдры в гетрах тырят в ведра ядра кедров. Выдрав с выдры в тундре гетры,
-                            вытру выдрой ядра кедра, вытру гетрой выдре морду — ядра в вёдра, выдру в тундру.“</p>
-                    </div>
-                </a>
-            </div>
-            <div class="col">
-                <a class="alink" href="/news">
-                    <div class="jumbotron ncard">
-                        <h4>И еще одна
-                            <font-awesome-icon class="flag" icon="flag" style="color: yellow"/>
-                        </h4>
-                        <h6>20.10.2020</h6>
-                        <p>На мели мы налима лениво ловили, меняли налима вы мне на линя. О любви не меня ли вы мило
-                            молили, и в туманы лимана манили меня</p>
-                    </div>
-                </a>
+                </router-link>
             </div>
         </div>
-
         <div class="form-row" id="about">
             <div class="col">
                 <br>
@@ -71,36 +44,18 @@
                 <th>Услуга</th>
                 <th>Стоимость</th>
                 <th>Количество</th>
-                <th>Итого</th>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Квартальная отчетность для ООО</td>
-                    <td>5 000,00</td>
-                    <td>
-                        <button class="btn">-</button>
-                        1
-                        <button class="btn">+</button>
-                    </td>
-                    <td>5 000,00</td>
+                <tr v-for="n in items" v-bind:key="n">
+                    <td>{{n.name}}</td>
+                    <td>{{n.value}}</td>
+                    <td><input v-model="n.number" type="number"></td>
                 </tr>
                 <tr>
-                    <td>Количество первичных документов</td>
-                    <td>50,00</td>
-                    <td>
-                        <button class="btn">-</button>
-                        10
-                        <button class="btn">+</button>
-                    </td>
-                    <td>500,00</td>
-                </tr>
-                <tr>
-                    <td></td>
                     <td></td>
                     <td><b>Итого</b></td>
-                    <td><b>5 500,0</b></td>
+                    <td><b>{{ total }}</b></td>
                 </tr>
-
                 </tbody>
             </table>
         </div>
@@ -124,12 +79,41 @@
 </template>
 
 <script>
+    import MainService from '../services/main.service';
+
     export default {
         name: 'Home',
-        props: {
-            msg: String
+        data: function () {
+            return {
+                news_list: [],
+                document: [],
+                items: [
+                    {name: "Организация на ОСН", value: 5000, number: 0},
+                    {name: "Организация на УСН", value: 3000, number: 0},
+                    {name: "Обработка входящих документов", value: 50, number: 0},
+                ]
+            };
+        },
+        mounted() {
+            MainService.getThreeNews().then(
+                response => {
+                    this.news_list = response.data;
+                },
+                error => {
+                    this.notifications =
+                        (error.response && error.response.data) ||
+                        error.message ||
+                        error.toString();
+                }
+            );
+        },
+        computed: {
+            total() {
+                return this.items.reduce((acc, n) => acc + n.value * n.number, 0);
+            },
         }
-    }
+
+    };
 </script>
 
 <style scoped>
@@ -164,7 +148,7 @@
         padding: 1rem;
     }
 
-    #calc{
+    #calc {
         margin-top: 2rem;
         margin-bottom: 3rem;
     }
@@ -173,17 +157,18 @@
         margin: 2rem;
     }
 
-    #callback{
+    #callback {
         max-width: 90%;
         padding-left: 2rem;
     }
-    #callback input{
+
+    #callback input {
         width: 320px;
         margin: .5rem;
 
-}
+    }
 
-    #callback button{
+    #callback button {
         background-color: #e9ecef;
         font-size: 1.25rem;
         margin: 0.5rem;

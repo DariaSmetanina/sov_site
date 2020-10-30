@@ -21,7 +21,7 @@
                         <a class="nav-link" href="#footer"> Контакты <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/personal">Личный кабинет</a>
+                        <a class="nav-link active" href="/choose">Личный кабинет</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="/settings">Настройки</a>
