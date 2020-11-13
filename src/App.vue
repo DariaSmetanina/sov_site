@@ -6,29 +6,60 @@
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="collapse navbar-collapse" id="navbarCollapse" >
                 <ul class="navbar-nav mr-auto">
+                    <div v-if="!currentUser">
                     <li class="nav-item active">
                         <a class="nav-link" href="#news"> Новости <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#about"> О нас <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#calc"> Тарифы <span class="sr-only">(current)</span></a>
-                    </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#about"> О нас <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#calc"> Тарифы <span class="sr-only">(current)</span></a>
+                        </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="#footer"> Контакты <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
+                    </div>
+                    <li v-if="isRegistred" class="nav-item">
                         <a class="nav-link active" href="/choose">Личный кабинет</a>
                     </li>
-                    <li class="nav-item">
+                    <li v-if="isRegistred" class="nav-item">
                         <a class="nav-link active" href="/settings">Настройки</a>
                     </li>
+                    <li v-if="isAccounter" class="nav-item">
+                        <a class="nav-link active" href="/createnews">Добавить новость</a>
+                    </li>
+                    <li v-if="isClient" class="nav-item">
+                        <a class="nav-link active" href="/message">Отправить письмо</a>
+                    </li>
+                    <div v-if="!currentUser" class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <router-link to="/login" class="nav-link">
+                                <font-awesome-icon icon="sign-in-alt"/>
+                                Вход
+                            </router-link>
+                        </li>
+                    </div>
 
+                    <div v-if="currentUser" class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <router-link to="/choose" class="nav-link">
+                                <font-awesome-icon icon="user"/>
+                                {{ currentUser.username }}
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href @click.prevent="logOut">
+                                <font-awesome-icon icon="sign-out-alt"/>
+                                Выход
+                            </a>
+                        </li>
+                    </div>
                 </ul>
             </div>
+
         </nav>
         <div>
             <router-view/>
@@ -39,20 +70,67 @@
             </a>
         </div>
         <footer class="footer" style=" overflow-x: auto;">
-        <table class="table" id="footer">
-            <tr><td><font-awesome-icon icon="phone"/> +7(999)635-98-30
-            <br> <font-awesome-icon icon="phone"/> +7(922)651-73-12</td>
-                <td>За качество своей работы мы отвечаем в строгом соответствии с договором и законодательством Российской Федерации.</td>
-                <td><font-awesome-icon icon="envelope"/> emailOrg@gmail.com
-                <br><font-awesome-icon icon="envelope"/> emailOrg@mail.ru</td>
-            </tr>
-        </table>
+            <table class="table" id="footer">
+                <tr>
+                    <td>
+                        <font-awesome-icon icon="phone"/>
+                        +7(999)635-98-30
+                        <br>
+                        <font-awesome-icon icon="phone"/>
+                        +7(922)651-73-12
+                    </td>
+                    <td>За качество своей работы мы отвечаем в строгом соответствии с договором и законодательством
+                        Российской Федерации.
+                    </td>
+                    <td>
+                        <font-awesome-icon icon="envelope"/>
+                        emailOrg@gmail.com
+                        <br>
+                        <font-awesome-icon icon="envelope"/>
+                        emailOrg@mail.ru
+                    </td>
+                </tr>
+            </table>
         </footer>
+
     </div>
 </template>
 
 <script>
-    export default {}
+    export default {
+        computed: {
+            currentUser() {
+                return this.$store.state.auth.user;
+            },
+            isRegistred() {
+                if (this.currentUser) {
+                    return true;
+                }
+                return false;
+            },
+            isAccounter() {
+                if (this.currentUser && this.currentUser.roles) {
+                    return this.currentUser.roles.includes('accounter');
+                }
+
+                return false;
+            },
+
+            isClient() {
+                if (this.currentUser && this.currentUser.roles) {
+                    return this.currentUser.roles.includes('client');
+                }
+
+                return false;
+            },
+        },
+        methods: {
+            logOut() {
+                this.$store.dispatch('auth/logout');
+                this.$router.push('/login');
+            }
+        }
+    };
 </script>
 
 <style>
@@ -63,10 +141,6 @@
         text-align: center;
         color: #2c3e50;
         margin: 0;
-
-    }
-
-    table{
 
     }
 
@@ -124,28 +198,31 @@
         padding-left: 10%;
     }
 
-    .alink, .alink:hover{
+    .alink, .alink:hover {
         text-decoration: none;
-        color:#2c3e50;
+        color: #2c3e50;
 
     }
 
-    .footer{
+    .footer {
         padding: 1rem;
         max-width: 90%;
         margin: auto;
     }
-    #footer td{
+
+    #footer td {
         min-width: 300px;
     }
 
-    .flagClass-1{
+    .flagClass-1 {
         color: red;
     }
-    .flagClass-2{
+
+    .flagClass-2 {
         color: yellow;
     }
-    .flagClass-3{
+
+    .flagClass-3 {
         color: green;
     }
 

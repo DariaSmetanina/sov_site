@@ -10,8 +10,7 @@
                 </div>
                 <div class="form-row">
                     <div class="col">
-                        <input v-model="person.email" type="email" id="inputEmail" class="form-control" placeholder="Новый email" required
-                               autofocus>
+                        <input v-model="person.email" type="email" id="inputEmail" class="form-control" placeholder="Новый email">
                     </div>
                     <div class="col"></div>
                 </div>
@@ -20,11 +19,11 @@
                 </div>
                 <div class="form-row">
                     <div class="col"><input v-model="person.oldPassword" type="password" id="origPassword" class="form-control"
-                                            placeholder="Старый пароль" required autofocus></div>
+                                            placeholder="Старый пароль" required></div>
                     <div class="col"><input v-model="person.newPassword" type="password" id="newPassword" class="form-control"
-                                            placeholder="Новый пароль" required autofocus></div>
+                                            placeholder="Новый пароль"></div>
                     <div class="col"><input v-model="person.newPasswordCopy" type="password" id="newPassword2" class="form-control"
-                                            placeholder="Повторите новый пароль" required autofocus></div>
+                                            placeholder="Повторите новый пароль"></div>
                 </div>
                 <h5>{{message}}</h5>
                 <button class="btn btn-lg btn-dark btn-block" type="submit">Сохранить изменения</button>
@@ -59,8 +58,8 @@
 </template>
 
 <script>
-    import AddEditService from '../services/addedit.service';
-    import MainService from '../services/main.service';
+    import AddEditService from '../../services/addedit.service';
+    import MainService from '../../services/main.service';
     import UserSettings from "@/models/userSettings";
     export default {
         name: 'Settings',
@@ -87,6 +86,7 @@
     },
     methods: {
     editPersonal(){
+        if (this.person.email ||(this.person.newPassword && this.person.newPasswordCopy)) {
         this.submitted = true;
         AddEditService.setPersonal(this.person).then(
                     response => {
@@ -103,6 +103,9 @@
                     }
                 );
             }
+            else{
+                this.message = "Что именно Вы хотите изменить?"
+            }}
         }};
 </script>
 

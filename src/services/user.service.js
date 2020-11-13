@@ -7,12 +7,12 @@ const API_UPL = 'http://localhost:8088/users/';
 
 class UserService {
 
-  updateUserInfo(username, realName, mobilePhone) {
+  updateUserInfo(username, name, email) {
 
     return axios.patch(API_UPL + 'editprofile/' + username,
         {
-            realName : realName,
-            mobilePhone : mobilePhone
+            name : name,
+            email : email
         },
         { headers: authHeader() })
         .then(response => {

@@ -15,9 +15,8 @@ class AddEditService {
             {headers: authHeader()});
   }
 
-
   addNews(news) {
-    return axios.post(NEWAPI_URL + 'addNews', {
+    return axios.post(NEWAPI_URL , {
       title: news.title,
       importance: news.importance,
       mainPart: news.mainPart,
@@ -26,6 +25,7 @@ class AddEditService {
         },
         {headers: authHeader()});
   }
+
 
 }
 

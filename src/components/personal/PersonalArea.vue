@@ -2,13 +2,22 @@
     <div class="PersonalArea">
         <main role="main" class="container">
             <div class="form-row">
-            <div v-for="organization in organizations" v-bind:key="organization" class="col">
-                <a :href="'/personal/'+organization.inn" class="alink">
-                    <div class="orgcard" >
-                        <h3>{{ organization.name }}</h3>
-                    </div>
-                </a>
-            </div>
+                <div v-for="organization in organizations" v-bind:key="organization" class="col">
+                    <a :href="'/personal/'+organization.inn" class="alink">
+                        <div v-if="organization.inn==currentInn">
+                            <div class="orgcard">
+                            <div class="currorgcard">
+                                <h3><b>{{ organization.name }}</b></h3>
+                            </div>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <div class="orgcard">
+                                <h3>{{ organization.name }}</h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
             <div class="form-row">
                 <div class="col">
@@ -80,13 +89,14 @@
                 </div>
             </div>
 
+
         </main>
 
     </div>
 </template>
 
 <script>
-    import MainService from '../services/main.service';
+    import MainService from '../../services/main.service';
 
     export default {
         name: 'list_account',
@@ -94,7 +104,8 @@
             return {
                 accounts: [],
                 notifications: [],
-                organizations:[]
+                organizations: [],
+                currentInn: this.$route.params.inn
             };
         },
         mounted() {
@@ -131,7 +142,6 @@
                         error.toString();
                 }
             );
-
         }
     };
 </script>
@@ -152,10 +162,25 @@
         margin-left: .7rem;
     }
 
-    .orgcard{
+    .orgcard {
         background-color: #343a40;
-        color: white;
+        color: grey;
         margin: 0.5rem;
         border-radius: 0.5rem;
     }
+
+    .currorgcard{
+        margin: 0.5rem;
+        margin-top: 0.5rem;
+        border-radius: 0.5rem;
+        background-color: white;
+        color: #343a40;
+
+    }
+
+    .orgcard h3{
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+    }
+
 </style>

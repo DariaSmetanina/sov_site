@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import MainService from '../services/main.service';
-import News from '../models/news.js'
+import MainService from '../../services/main.service';
+import News from '../../models/news.js'
 
     export default {
         name: 'News',

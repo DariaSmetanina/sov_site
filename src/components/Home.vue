@@ -1,5 +1,7 @@
 <template>
     <div class="Home" id="Home">
+
+
         <div id="carousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">

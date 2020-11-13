@@ -8,14 +8,17 @@
                         <thead class="thead-dark">
                         <th>Дата</th>
                         <th>Статус</th>
-                        <th>Организация</th>
+                        <th><select v-model="organization" >
+                            <option value="">Организации</option>
+                            <option v-for="(organization) in uniqOrganization" v-bind:key="organization">{{organization}}</option>
+                        </select></th>
                         <th>Счет</th>
                         <th>Сумма</th>
                         <th>Комментарий</th>
                         <th></th>
                         </thead>
                         <tbody id="list_account">
-                        <tr v-for="account in accounts" v-bind:key="account">
+                        <tr v-for="account in filteredList" v-bind:key="account">
                             <td>{{ account.date }}</td>
                             <td>
                                 <font-awesome-icon :class="'flagClass-'+account.status" icon="flag"/>
@@ -40,15 +43,29 @@
 </template>
 
 <script>
-    import MainService from '../services/main.service';
+    import MainService from '../../services/main.service';
 
     export default {
         name: 'list_account',
         data: function () {
             return {
+                organization:'',
                 accounts: []
             };
         },
+        computed:{
+            uniqOrganization: function(){
+                return this.accounts
+                    .map((x) => x.organization)
+                    .reduce((r, с) => [...new Set(r.concat(с))], [])
+            },
+            filteredList: function(){
+                var org = this.organization;
+                return this.accounts.filter(function (elem) {
+                    if(org=='') return true;
+                    else return (elem.organization.indexOf(org) > -1);
+                })
+            }},
         mounted() {
             MainService.getAccontList().then(
                 response => {
@@ -80,6 +97,13 @@
         padding-top: 2rem;
         padding-bottom: 2rem;
 
+    }
+
+    select{
+        font-weight: bold;
+        color: white;
+        background-color: #343a40;
+        border-color: #343a40;
     }
 
 </style>

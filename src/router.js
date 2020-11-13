@@ -1,16 +1,18 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './components/Home.vue';
-import News from "@/components/News";
-import CreateNews from "@/components/CreateNews";
+import News from "@/components/news/News";
+import AllNews from "@/components/news/AllNews";
+import CreateNews from "@/components/news/CreateNews";
 import Login from "@/components/Login";
-import Settings from "@/components/Settings";
-import Notice from "@/components/Notice";
+import Register from "@/components/Register";
+import Settings from "@/components/personal/Settings";
+import Notice from "@/components/personal/Notice";
 import SendMessage from "@/components/SendMessage";
-import Templates from "@/components/Templates";
-import PersonalArea from "@/components/PersonalArea";
-import Payment from "@/components/Payment";
-import ChooseOrg from "@/components/ChooseOrg";
+import Templates from "@/components/personal/Templates";
+import PersonalArea from "@/components/personal/PersonalArea";
+import Payment from "@/components/personal/Payment";
+import ChooseOrg from "@/components/personal/ChooseOrg";
 
 Vue.use(Router);
 
@@ -27,6 +29,10 @@ export const router = new Router({
             component: News
         },
         {
+            path: '/allnews',
+            component: AllNews
+        },
+        {
             path: '/createnews',
             component: CreateNews
         }
@@ -34,6 +40,11 @@ export const router = new Router({
         {
             path: '/login',
             component: Login
+        }
+        ,
+        {
+            path: '/register',
+            component: Register
         }
         ,
         {

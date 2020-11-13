@@ -22,12 +22,12 @@
                         </td>
                         <td>
                             <button class="btn">
-                                <img src="../assets/word-doc-icon.png">
+                                <img src="../../assets/word-doc-icon.png">
                             </button>
                         </td>
                         <td>
                             <button class="btn">
-                                <img src="../assets/pdf-icon.png">
+                                <img src="../../assets/pdf-icon.png">
                             </button>
                         </td>
                     </tr>
@@ -48,7 +48,7 @@
                         </td>
                         <td>
                             <button class="btn">
-                                <img src="../assets/zip-icon.png">
+                                <img src="../../assets/zip-icon.png">
                             </button>
                         </td>
                     </tr>

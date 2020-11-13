@@ -41,10 +41,10 @@ export const auth = {
       );
     },
 
-    updateUser({ commit }, [newRealName, newMobilePhone]) {
-      return UserService.updateUserInfo(this.state.auth.user.username, newRealName, newMobilePhone).then(
+    updateUser({ commit }, [newName, newEmail]) {
+      return UserService.updateUserInfo(this.state.auth.user.username, newName, newEmail).then(
           response => {
-            commit('editInfoSuccess', [newRealName, newMobilePhone]);
+            commit('editInfoSuccess', [newName, newEmail]);
             return Promise.resolve(response);
           },
           error => {
@@ -72,22 +72,22 @@ export const auth = {
     registerFailure(state) {
       state.status.loggedIn = false;
     },
-    editInfoSuccess(state, [newRealName, newMobilePhone]) {
-      newRealName = newRealName ? newRealName : state.user.realName;
-      newMobilePhone = newMobilePhone ? newMobilePhone : state.user.mobilePhone;
+    editInfoSuccess(state, [newName, newEmail]) {
+      newName = newName ? newName : state.user.name;
+      newEmail = newEmail ? newEmail : state.user.email;
       localStorage.setItem('user',  JSON.stringify({
         token: state.user.token,
         type: state.user.type,
         id : state.user.id,
         username: state.user.username,
         roles: state.user.roles,
-        realName: newRealName,
-        mobilePhone: newMobilePhone,
+        name: newName,
+        email: newEmail,
         rate: state.user.rate,
         status: state.user.status
       }));
-      state.user.realName = newRealName;
-      state.user.mobilePhone = newMobilePhone;
+      state.user.name = newName;
+      state.user.email = newEmail;
     }
 
 

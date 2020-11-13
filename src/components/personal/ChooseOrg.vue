@@ -15,7 +15,7 @@
 
 <script>
 
-import MainService from '../services/main.service';
+import MainService from '../../services/main.service';
 
 export default {
     name: 'ChooseOrg',

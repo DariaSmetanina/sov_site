@@ -5,7 +5,7 @@
                 <form @submit.prevent="addNews">
                     <div class="form-row">
                         <div class="col">
-                            <input v-model="news.title" type="text" class="form-control mb-3" placeholder="Название" id="title">
+                            <input v-model="news.title" type="text" class="form-control mb-3" placeholder="Название" id="title" required>
                         </div>
                         <div class="col" id="urgent">
                             <div class="btn-group" data-toggle="buttons">
@@ -29,9 +29,9 @@
                     </div>
                     <div class="form-row">
                         <textarea v-model="news.mainPart" class="form-control" id="MainPart" rows="3"
-                                  placeholder="Введите основную мысль текста"></textarea>
+                                  placeholder="Введите основную мысль текста" required></textarea>
                         <textarea v-model="news.text" class="form-control" id="LongPart" rows="6"
-                                  placeholder="Введите полный текст, со ссылками на источники"></textarea>
+                                  placeholder="Введите полный текст, со ссылками на источники" required></textarea>
                     </div>
                     <div class="form-row">
                         <div class="col">
@@ -57,13 +57,13 @@
 </template>
 
 <script>
-    import AddEditService from '../services/addedit.service';
+    import AddEditService from '../../services/addedit.service';
     import News from "@/models/news";
     export default {
         name: 'Settings',
         data: function () {
             return {
-                news: new News('', '', '', '', '', '', ''),
+                news: new News('', '', '2', '', '', '', ''),
                 submitted: false,
                 message: ''
             };
@@ -73,6 +73,7 @@
                 this.submitted = true;
                 AddEditService.addNews(this.news).then(
                     response => {
+                        this.$router.push('/');
                         this.message = response.data.message;
                         this.successful = true;
                         this.showRoute(this.startObjectFromGeocoder, this.finishObjectFromGeocoder)
