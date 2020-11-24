@@ -100,5 +100,4 @@
         padding-left: 6rem;
     }
 
-
 </style>

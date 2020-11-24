@@ -15,6 +15,11 @@ class AddEditService {
             {headers: authHeader()});
   }
 
+  deleteOrgFromUser(inn){
+    return axios.delete(USERAPI_URL + 'settings/?inn='+inn,
+        {headers: authHeader()});
+  }
+
   addNews(news) {
     return axios.post(NEWAPI_URL , {
       title: news.title,
@@ -22,6 +27,22 @@ class AddEditService {
       mainPart: news.mainPart,
       text:news.text,
       files:news.files
+        },
+        {headers: authHeader()});
+  }
+
+  addOrgs(organization) {
+    return axios.post(USERAPI_URL + 'addOrg', {
+          name: organization.name,
+          inn: organization.inn,
+          director: organization.director
+        },
+        {headers: authHeader()});
+  }
+  addOrgToUser(addOrgToUser) {
+    return axios.post(USERAPI_URL + 'addOrgToUser', {
+          username: addOrgToUser.username,
+          inn: addOrgToUser.inn
         },
         {headers: authHeader()});
   }

@@ -10,16 +10,16 @@
                 <ul class="navbar-nav mr-auto">
                     <div v-if="!currentUser">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#news"> Новости <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/#news"> Новости <span class="sr-only">(current)</span></a>
                     </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="#about"> О нас <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/#about"> О нас <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="#calc"> Тарифы <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="/#calc"> Тарифы <span class="sr-only">(current)</span></a>
                         </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#footer"> Контакты <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/#footer"> Контакты <span class="sr-only">(current)</span></a>
                     </li>
                     </div>
                     <li v-if="isRegistred" class="nav-item">
@@ -33,6 +33,15 @@
                     </li>
                     <li v-if="isClient" class="nav-item">
                         <a class="nav-link active" href="/message">Отправить письмо</a>
+                    </li>
+                    <li v-if="isAdmin" class="nav-item">
+                        <a class="nav-link active" href="/register">Зарегестрировать пользователя</a>
+                    </li>
+                    <li v-if="isAdmin" class="nav-item">
+                        <a class="nav-link active" href="/addOrganization">Добавить организацию</a>
+                    </li>
+                    <li v-if="isAdmin" class="nav-item">
+                        <a class="nav-link active" href="/addOrganizationToUser">Дать доступ</a>
                     </li>
                     <div v-if="!currentUser" class="navbar-nav ml-auto">
                         <li class="nav-item">
@@ -103,14 +112,14 @@
                 return this.$store.state.auth.user;
             },
             isRegistred() {
-                if (this.currentUser) {
-                    return true;
+                if (this.currentUser && this.currentUser.roles) {
+                    return this.currentUser.roles.includes('accountant')||this.currentUser.roles.includes('client');
                 }
                 return false;
             },
             isAccounter() {
                 if (this.currentUser && this.currentUser.roles) {
-                    return this.currentUser.roles.includes('accounter');
+                    return this.currentUser.roles.includes('accountant');
                 }
 
                 return false;
@@ -119,6 +128,13 @@
             isClient() {
                 if (this.currentUser && this.currentUser.roles) {
                     return this.currentUser.roles.includes('client');
+                }
+
+                return false;
+            },
+            isAdmin() {
+                if (this.currentUser && this.currentUser.roles) {
+                    return this.currentUser.roles.includes('admin');
                 }
 
                 return false;

@@ -5,14 +5,17 @@ import News from "@/components/news/News";
 import AllNews from "@/components/news/AllNews";
 import CreateNews from "@/components/news/CreateNews";
 import Login from "@/components/Login";
-import Register from "@/components/Register";
+import Register from "@/components/Admin/Register";
 import Settings from "@/components/personal/Settings";
 import Notice from "@/components/personal/Notice";
 import SendMessage from "@/components/SendMessage";
 import Templates from "@/components/personal/Templates";
 import PersonalArea from "@/components/personal/PersonalArea";
+import DeleteOrg from "@/components/personal/DeleteOrg";
 import Payment from "@/components/personal/Payment";
 import ChooseOrg from "@/components/personal/ChooseOrg";
+import AddOrganization from "@/components/Admin/AddOrganization";
+import AddOrganizationToUser from "@/components/Admin/AddOrganizationToUser";
 
 Vue.use(Router);
 
@@ -35,6 +38,16 @@ export const router = new Router({
         {
             path: '/createnews',
             component: CreateNews
+        }
+        ,
+        {
+            path: '/addOrganization',
+            component: AddOrganization
+        }
+        ,
+        {
+            path: '/addOrganizationToUser',
+            component: AddOrganizationToUser
         }
         ,
         {
@@ -70,6 +83,11 @@ export const router = new Router({
         {
             path: '/personal/:inn',
             component: PersonalArea
+        }
+        ,
+        {
+            path: '/delete/:inn',
+            component: DeleteOrg
         }
         ,
         {

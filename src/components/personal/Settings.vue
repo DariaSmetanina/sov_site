@@ -45,9 +45,11 @@
                         <td>{{ organization.inn }}</td>
                         <td>{{ organization.director }}</td>
                         <td>
+                            <router-link :to="'/delete/'+organization.inn" class="alink">
                             <div class="btn btn-sm">
                                 <font-awesome-icon icon="trash-alt"/>
                             </div>
+                            </router-link>
                         </td>
                     </tr>
                     </tbody>

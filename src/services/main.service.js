@@ -1,6 +1,7 @@
 import axios from 'axios';
 import authHeader from './auth-header';
 
+const USERAPI_URL = 'http://localhost:8088/api/user/';
 const NEWAPI_URL = 'http://localhost:8088/api/news/';
 const ACCAPI_URL = 'http://localhost:8088/api/accounts/';
 const NOTAPI_URL = 'http://localhost:8088/api/notifications/';
@@ -37,6 +38,10 @@ class MainService {
 
   getOrganizations(){
     return axios.get(ACCAPI_URL+'organizations', { headers: authHeader() });
+  }
+
+  getOrganizationn(inn){
+    return axios.get(USERAPI_URL+'organization?inn='+inn, { headers: authHeader() });
   }
 
 
