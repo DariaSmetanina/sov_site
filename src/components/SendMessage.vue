@@ -3,18 +3,18 @@
         <main role="main" class="container">
             <div class="jumbotron ncard">
                 <h1 class="h3 mb-3 font-weight-normal">Написать письмо</h1>
-                <form>
+                <form @submit.prevent="sendMail">
                     <div class="form-row">
                         <label for="email">Ваш электронный адрес</label>
-                        <input type="text" class="form-control mb-3" placeholder="Ваш электронный адрес, чтобы мы могли ответить Вам" id="email">
+                        <input v-model="mail.from" type="text" class="form-control mb-3" placeholder="Ваш электронный адрес, чтобы мы могли ответить Вам" id="email">
                     </div>
 
                     <div class="form-row">
                         <label for="title">Тема письма</label>
-                            <input type="text" class="form-control mb-3" placeholder="Тема письма, чтобы мы могли быстрее обработать ваше письмо" id="title">
+                            <input v-model="mail.subject" type="text" class="form-control mb-3" placeholder="Тема письма, чтобы мы могли быстрее обработать ваше письмо" id="title">
                     </div>
                     <div class="form-row">
-                        <textarea class="form-control" id="LongPart" rows="6"
+                        <textarea v-model="mail.text" class="form-control" id="LongPart" rows="6"
                                   placeholder="Что Вы хотите нам сказать?"></textarea>
                     </div>
                     <div class="form-row">
@@ -27,6 +27,7 @@
                         </div>
                         <div class="col">
                             <input type="submit" class="btn btn-dark" value="Отправить письмо">
+                            {{message}}
                         </div>
                     </div>
 
@@ -40,12 +41,36 @@
 </template>
 
 <script>
+    import MailService from '../services/mail.service.js';
+    import Mail from "@/models/mail";
     export default {
-        name: 'News',
-        props: {
-            msg: String
-        }
-    }
+        name: 'sendMail',
+        data: function () {
+            return {
+                mail: new Mail('', [],'','', ''),
+                submitted: false,
+                message: ''
+            };
+        },
+        methods: {
+            sendMail(){
+                this.submitted = true;
+                MailService.sendMail(this.mail).then(
+                    response => {
+                        this.message = response.data.message;
+                        this.successful = true;
+                        this.showRoute(this.startObjectFromGeocoder, this.finishObjectFromGeocoder)
+                    },
+                    error => {
+                        this.message =
+                            (error.response && error.response.data) ||
+                            error.message ||
+                            error.toString();
+                        this.successful = false;
+                    }
+                );
+            }
+        }};
 </script>
 
 
