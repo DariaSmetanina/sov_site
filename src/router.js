@@ -8,6 +8,8 @@ import Login from "@/components/Login";
 import Register from "@/components/Admin/Register";
 import Settings from "@/components/personal/Settings";
 import Notice from "@/components/personal/Notice";
+import Cloud from "@/components/personal/Cloud";
+import SendNotification from "@/components/personal/SendNotification";
 import SendMessage from "@/components/SendMessage";
 import Templates from "@/components/personal/Templates";
 import PersonalArea from "@/components/personal/PersonalArea";
@@ -76,6 +78,11 @@ export const router = new Router({
         }
         ,
         {
+            path: '/createNotification',
+            component: SendNotification
+        }
+        ,
+        {
             path: '/templates',
             component: Templates
         }
@@ -86,12 +93,17 @@ export const router = new Router({
         }
         ,
         {
+            path: '/cloud/:inn',
+            component: Cloud
+        }
+        ,
+        {
             path: '/delete/:inn',
             component: DeleteOrg
         }
         ,
         {
-            path: '/choose',
+            path: '/choose/:goto',
             component: ChooseOrg
         }
         ,

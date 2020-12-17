@@ -34,12 +34,11 @@
         computed: {
         loggedIn() {
                 return this.$store.state.auth.status.loggedIn;
-
             }
         },
         created() {
             if (this.loggedIn) {
-                this.$router.push('/profile');
+                this.$router.push('/choose/personal');
             }
         },
         methods: {
@@ -47,10 +46,12 @@
                 if (this.user.username && this.user.password) {
                 AuthService.login(this.user).then(
                     response => {
-                        this.$router.push('/choose');
+
+                        // this.$router.push('/choose');
+                        this.$router.go();
                         this.message = response.data.message;
                         this.successful = true;
-                        this.showRoute(this.startObjectFromGeocoder, this.finishObjectFromGeocoder)
+
                     },
                     error => {
                         this.message =

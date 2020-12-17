@@ -21,15 +21,21 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="/#footer"> Контакты <span class="sr-only">(current)</span></a>
                     </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/message"> Связаться <span class="sr-only">(current)</span></a>
+                        </li>
                     </div>
                     <li v-if="isRegistred" class="nav-item">
-                        <a class="nav-link active" href="/choose">Личный кабинет</a>
+                        <a class="nav-link active" href="/choose/personal">Личный кабинет</a>
                     </li>
                     <li v-if="isRegistred" class="nav-item">
                         <a class="nav-link active" href="/settings">Настройки</a>
                     </li>
                     <li v-if="isAccounter" class="nav-item">
                         <a class="nav-link active" href="/createnews">Добавить новость</a>
+                    </li>
+                    <li v-if="isAccounter" class="nav-item">
+                        <a class="nav-link active" href="/createNotification">Отправить уведомления</a>
                     </li>
                     <li v-if="isClient" class="nav-item">
                         <a class="nav-link active" href="/message">Отправить письмо</a>

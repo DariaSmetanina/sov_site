@@ -2,7 +2,6 @@
     <div class="News">
         <main role="main" class="container">
             <div class="jumbotron ncard">
-
                 <h1>{{request.title}}
                     <font-awesome-icon :class="'flagClass-'+request.importance"  icon="flag"/>
                 </h1>
@@ -10,7 +9,7 @@
                 <p>
                 <p><b>{{request.mainPart}}</b></p>
                 <p>{{request.text}}</p>
-                 <img src="">
+                <img :src="require('C:/Users/Dasha/Desktop/sovback/files/news/'+request.date+'/'+request.files)">
             </div>
 
         </main>
@@ -26,7 +25,8 @@ import News from '../../models/news.js'
         name: 'News',
         data() {
             return {
-                request: new News()
+                request: new News(),
+                filename: 'fileff.jpg'
             };
         },
         mounted() {
@@ -42,7 +42,7 @@ import News from '../../models/news.js'
                 }
             );
         }
-     };
+};
 </script>
 
 

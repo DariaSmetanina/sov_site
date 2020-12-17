@@ -13,6 +13,8 @@
             </div>
         </div>
 
+
+
         <div class="form-row" id="news">
             <div class="col" v-for="news in news_list" v-bind:key="news">
                 <router-link :to="'/news/'+news.id" class="alink">
@@ -114,7 +116,6 @@
                 return this.items.reduce((acc, n) => acc + n.value * n.number, 0);
             },
         }
-
     };
 </script>
 

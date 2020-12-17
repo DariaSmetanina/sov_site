@@ -44,8 +44,18 @@ class MainService {
     return axios.get(USERAPI_URL+'organization?inn='+inn, { headers: authHeader() });
   }
 
+  getFile(fileName){
+    return axios({
+      method: 'get',
+      url: USERAPI_URL+'download2?fileName='+fileName+'&inn=233233233233',
+      headers: authHeader(),
+      responseType: 'blob'});
+  }
 
 
+  getFileList(inn){
+      return axios.get(USERAPI_URL+'files?inn='+inn, { headers: authHeader() });
+  }
 
 
 }

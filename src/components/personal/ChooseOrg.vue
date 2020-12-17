@@ -2,7 +2,7 @@
     <div class="ChooseOrg">
         <main role="main" class="container">
             <div v-for="organization in organizations" v-bind:key="organization">
-            <router-link :to="'/personal/'+organization.inn" class="alink">
+            <router-link :to="'/'+currentGoto+'/'+organization.inn" class="alink">
             <div class="jumbotron ncard" >
                 <h1 class="h3 mb-3 font-weight-normal">{{ organization.name }}</h1>
                 <h5>ИНН:{{ organization.inn }}</h5><h5>Руководитель:{{ organization.director }}</h5>
@@ -21,6 +21,7 @@ export default {
     name: 'ChooseOrg',
     data: function () {
         return {
+            currentGoto: this.$route.params.goto,
             organizations: []
         };
     },

@@ -2,25 +2,25 @@
     <div class="News">
         <main role="main" class="container">
             <div class="jumbotron ncard">
-                <form @submit.prevent="addNews">
+                <form method="POST" action="/api/news/addNews" enctype="multipart/form-data">
                     <div class="form-row">
                         <div class="col">
-                            <input v-model="news.title" type="text" class="form-control mb-3" placeholder="Название" id="title" required>
+                            <input type="text" class="form-control mb-3" placeholder="Название" id="title"  name="title" required>
                         </div>
                         <div class="col" id="urgent">
                             <div class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-success active">
-                                    <input v-model="news.importance" type="radio" value ="3" style="display: none;" name="urgency">
+                                    <input type="radio" value ="3" style="display: none;" name="urgency">
                                     <span><font-awesome-icon icon="flag"/></span>
                                 </label>
 
                                 <label class="btn btn-warning">
-                                    <input v-model="news.importance" type="radio" value ="2" style="display: none;" name="urgency" checked>
+                                    <input type="radio" value ="2" style="display: none;" name="urgency" checked>
                                     <span><font-awesome-icon icon="flag"/></span>
                                 </label>
 
                                 <label class="btn btn-danger">
-                                    <input v-model="news.importance" type="radio" value ="1" style="display: none;" name="urgency">
+                                    <input type="radio" value ="1" style="display: none;" name="urgency">
                                     <span><font-awesome-icon icon="flag"/></span>
                                 </label>
 
@@ -28,27 +28,20 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <textarea v-model="news.mainPart" class="form-control" id="MainPart" rows="3"
+                        <textarea class="form-control" id="MainPart" rows="3" name="mainPart"
                                   placeholder="Введите основную мысль текста" required></textarea>
-                        <textarea v-model="news.text" class="form-control" id="LongPart" rows="6"
+                        <textarea class="form-control" id="LongPart" rows="6" name="longPart"
                                   placeholder="Введите полный текст, со ссылками на источники" required></textarea>
                     </div>
                     <div class="form-row">
                         <div class="col">
-                            <div class="form-file">
-                                <input type="file" class="form-file-input" id="customFile">
-                                <label class="form-file-label" for="customFile">
-                                </label>
-                            </div>
+                    <input type="file" name="file">
                         </div>
-                        <h3>{{message}}</h3>
                         <div class="col">
-                            <input type="submit" class="btn btn-dark" value="Отправить новость">
+                    <input type="submit" class="btn btn-dark" value="Отправить новость">
                         </div>
                     </div>
-
                 </form>
-
             </div>
 
         </main>
@@ -57,37 +50,7 @@
 </template>
 
 <script>
-    import AddEditService from '../../services/addedit.service';
-    import News from "@/models/news";
-    export default {
-        name: 'Settings',
-        data: function () {
-            return {
-                news: new News('', '', '2', '', '', '', ''),
-                submitted: false,
-                message: ''
-            };
-        },
-        methods: {
-            addNews(){
-                this.submitted = true;
-                AddEditService.addNews(this.news).then(
-                    response => {
-                        this.$router.push('/');
-                        this.message = response.data.message;
-                        this.successful = true;
-                        this.showRoute(this.startObjectFromGeocoder, this.finishObjectFromGeocoder)
-                    },
-                    error => {
-                        this.message =
-                            (error.response && error.response.data) ||
-                            error.message ||
-                            error.toString();
-                        this.successful = false;
-                    }
-                );
-            }
-        }};
+
 </script>
 
 
