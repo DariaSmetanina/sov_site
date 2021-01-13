@@ -44,10 +44,10 @@ class MainService {
     return axios.get(USERAPI_URL+'organization?inn='+inn, { headers: authHeader() });
   }
 
-  getFile(fileName){
+  getFile(fileName,inn){
     return axios({
       method: 'get',
-      url: USERAPI_URL+'download2?fileName='+fileName+'&inn=233233233233',
+      url: USERAPI_URL+'download2?fileName='+fileName+'&inn='+inn,
       headers: authHeader(),
       responseType: 'blob'});
   }
